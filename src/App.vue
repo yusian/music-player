@@ -1,15 +1,27 @@
 <template>
 <div id="app">
-  Hello World!!
+  <nav-bar></nav-bar>
+  <tab-bar></tab-bar>
+  <router-view></router-view>
 </div>
 </template>
 
 <script>
+import NavBar from '@/components/nav-bar/nav-bar'
+import TabBar from '@/components/tab-bar/tab-bar'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    NavBar,
+    TabBar
+  }
 }
 </script>
 
-<style>
-#app {}
+<style scoped lang="stylus">
+@import '~@/common/stylus/variable.styl'
+#app
+  height: 100%
+  display: flex
+  flex-direction: column
 </style>

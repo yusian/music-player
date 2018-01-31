@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Rank from '@/components/rank/rank.vue'
-import Search from '@/components/search/search.vue'
-import Singer from '@/components/singer/singer.vue'
-import Recommend from '@/components/recommend/recommend.vue'
-Vue.use(Router)
+import Vue from 'vue';
+import Router from 'vue-router';
+import Rank from '@/components/rank/rank.vue';
+import Search from '@/components/search/search.vue';
+import Singer from '@/components/singer/singer.vue';
+import Recommend from '@/components/recommend/recommend.vue';
+Vue.use(Router);
 
 export default new Router({
   routes: [{
@@ -28,4 +28,4 @@ export default new Router({
     name: 'search',
     component: Search
   }]
-})
+});

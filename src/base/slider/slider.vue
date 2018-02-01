@@ -33,28 +33,47 @@ export default {
     },
     interval: {
       type: Number,
-      default: 4000
+      default: 1000
     }
   },
   mounted: function() {
+    // console.log('mounted...');
     this.sliderItems = this.$refs.sliderWrapper.children;
     setTimeout(() => {
       this._layoutScroll();
       this._layoutDots();
       this._initScrollCtrl();
       if (this.autoPlay) this._autoPlay();
-    }, 200);
+    }, 20);
     window.addEventListener('resize', () => {
       if (!this.scroll) return;
-      this._layoutScroll();
+      this._layoutScroll(true);
       this.scroll.refresh();
     });
   },
+  updated: function() {
+    // console.log('updated...');
+  },
+  activated: function() {
+    setTimeout(() => {
+      this.scroll.refresh();
+      this._autoPlay();
+    }, 200);
+    // console.log('activated...');
+  },
+  deactivated: function() {
+    // console.log('deactivated...');
+  },
+  destroyed: function() {
+    // console.log('destroyed');
+    clearTimeout(this.scrollTimer);
+  },
   methods: {
-    _layoutScroll: function() {
+    _layoutScroll: function(resize = false) {
       let w = this.$refs.slider.clientWidth; // 单个元素宽度
       let width = w * this.sliderItems.length; // 总宽度
-      if (this.loop) width += (w * 2); // 自动轮播增加两个宽度
+      // 自动轮播增加两个宽度
+      if (this.loop && !resize) width += (w * 2);
       this.$refs.sliderWrapper.style.width = width + 'px';
       Array.from(this.sliderItems).forEach(el => {
         el.style.width = w + 'px';
@@ -69,7 +88,7 @@ export default {
         scrollX: true,
         momentum: false,
         snap: {
-          loop: true
+          loop: this.loop
         }
       });
       this.scroll.on('scrollEnd', () => {
@@ -79,11 +98,15 @@ export default {
           this._autoPlay();
         }
       });
+      // 修复有时候不能自动轮播的问题
+      setTimeout(() => {
+        this.scroll.refresh();
+      }, 200);
     },
     _autoPlay: function() {
       this.scrollTimer = setTimeout(() => {
+        // this.currentPage: 0 ~ 4
         let index = (this.currentPage + 1) % this.dots.length;
-        console.log(index);
         this.scroll.goToPage(index, 0, 400);
       }, this.interval);
     }

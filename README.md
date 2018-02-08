@@ -28,7 +28,8 @@ npm run build --report
 "jsonp": "^0.2.1",
 "stylus": "^0.54.5",
 "stylus-loader": "^3.0.1",
-"better-scroll": "^1.8.0"
+"better-scroll": "^1.8.0",
+"vue-lazyload": "^1.1.4"
 ```
 > 1、样式预处理程序stylus
 
@@ -90,4 +91,21 @@ npm run build --report
 6.3.7、列表在滑动时，监听better-scroll的scroll事件得到滑动偏移量，与事先计算出的每个列表分组高度对比，得到当前所处的位置与索引列表相联动；
 6.3.8、增加一个体验性功能，列表的顶端添加一个组头视图，当滑动到哪个分组，组头视图即显示哪个分组的索引名称；
 6.4、公共组件loading，当视图成功挂载后，先显示loading视图，数据加载成功后再隐藏该组件，显示列表；
+```
+
+> 7、歌手详情页面
+
+```
+7.1、使用vuex进行状态管理（组件间数据交互）
+7.1.1、State：状态（数据）存储的全局单例
+7.1.2、Getter：状态（数据）存储的数据 读取 方法封装
+7.1.3、Mutation：状态（数据）存储的数据 写入 方法封装
+7.1.4、Action：暂未使用
+7.2、添加子路由，在路由路径为singer下面添加children数组，设置一个path为":id”这样路径就会根据router.push动态生成
+7.3、添加网络请求，封装歌手详情页面的网络请求方法；
+7.4、添加singer与song两个数据模拟对象；
+7.5、歌手详情页面的基本实现
+7.5.1、整体结构为Header+SongList两部分，songlist为scroll，监听scroll事件；
+7.5.2、当往上滚动时将Header部分进行transform变化，使其同步上移到保留Header的底部；
+7.5.3、由于往上滚动超出了songlist的可视区域，overflow不能设置hidden，并且Header的z-index要比songlist大；
 ```

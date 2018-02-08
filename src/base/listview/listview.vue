@@ -5,7 +5,7 @@
       <li class="group-section" v-for="(group, index) in listGroup" :key="index" ref="section">
         <h2 class="section-title">{{group.title}}</h2>
         <ul class="section-cells">
-          <li class="section-cell" v-for="item in group.items" :key="item.id" @click="_cell_click">
+          <li class="section-cell" v-for="item in group.items" :key="item.id" @click="_cell_click(item)">
             <span class="cell-avatar"><img v-lazy="item.avatar" width="60" height="60"></span>
             <span class="cell-text">{{item.name}}</span>
           </li>
@@ -73,8 +73,8 @@ export default {
     })
   },
   methods: {
-    _cell_click: function() {
-      console.log('cell_click');
+    _cell_click: function(singer) {
+      this.$emit('item-click', singer);
     },
     _touchstart: function(event) {
       this.touch = event.touches[0];
@@ -149,7 +149,7 @@ export default {
     align-items: center
     position: absolute
     top: 0
-    right: 0
+    right: 10px
     height: 100%
     .index-list-wrapper
       padding: 10px 4px

@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="singer">
     <loading v-if = "!singerList.length"></loading>
-    <list-view :listGroup="this.singerList"></list-view>
+    <list-view :listGroup="this.singerList" @item-click="itemClick"></list-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -11,6 +12,13 @@ import {
 } from '@/api/singer.js'
 import ListView from '@/base/listview/listview.vue'
 import Loading from '@/base/loading/loading.vue'
+import {
+  mapMutations
+} from 'vuex'
+// import Singer from '@/common/js/singer.js'
+import {
+  createSinger
+} from '@/common/js/singer.js'
 const HOT_GROUP_NAME = '热门歌手'
 const HOT_GROUP_LENGTH = 10
 export default {
@@ -32,7 +40,6 @@ export default {
     _getSingerList: function() {
       getSingerList().then(response => {
         this.singerList = this._formatSingerList(response.data.list);
-        console.log(this.singerList);
       }).catch(reject => {
         console.log(reject);
       });
@@ -42,7 +49,8 @@ export default {
       let hots = {};
       let group = {};
       originList.forEach((item, index) => {
-        let obj = this._formatSingerObject(item);
+        // let obj = new Singer(item.Fsinger_id, item.Fsinger_mid, item.Fsinger_name);
+        let obj = createSinger(item);
         // 前10个为热门
         if (index < HOT_GROUP_LENGTH) this._formartGroupObject(hots, HOT_GROUP_NAME, obj);
         this._formartGroupObject(group, item.Findex, obj);
@@ -69,15 +77,13 @@ export default {
       }
       map[groupName]['items'].push(groupItem);
     },
-    // 歌手对象数据转换
-    _formatSingerObject: function(originObj) {
-      let avatar = `https://y.gtimg.cn/music/photo_new/T001R300x300M000${originObj.Fsinger_mid}.jpg?max_age=2592000`
-      return {
-        id: originObj.Fsinger_mid,
-        name: originObj.Fsinger_name,
-        avatar: avatar
-      }
-    }
+    itemClick: function(singer) {
+      this.$router.push(`./singer/${singer.id}`);
+      this.setSinger(singer);
+    },
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    })
   }
 }
 </script>

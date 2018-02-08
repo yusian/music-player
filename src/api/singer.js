@@ -16,3 +16,17 @@ export function getSingerList() {
   });
   return SAJsonp(url, param, options);
 }
+
+export function getSingerDetail(singerId) {
+  let url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
+  let param = Object.assign({}, commonParams, {
+    singerid: singerId,
+    platform: 'h5page',
+    needNewCode: 1,
+    order: 'listen',
+    from: 'h5',
+    num: 15,
+    begin: 0
+  });
+  return SAJsonp(url, param, options);
+}

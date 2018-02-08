@@ -13,3 +13,27 @@ export function HasClass(el, className) {
   let reg = '(^|\\s)' + className + '(\\s|$)';
   return RegExp(reg).test(el.className);
 }
+
+let _prefix = (() => {
+  let style = document.createElement('div').style;
+  // 以transform为例
+  let transformEnum = {
+    webkit: 'webkitTransform',
+    Moz: 'MozTransform',
+    O: 'OTransform',
+    ms: 'msTransform',
+    standard: 'transform'
+  }
+  for (let key in transformEnum) {
+    // 一定要和undefined对比，不能直接判断该值的真假
+    if (style[transformEnum[key]] !== undefined) return key;
+  }
+  return null;
+})();
+
+export function prefixStyle(styleName) {
+  if (_prefix == null) return styleName;
+  if (_prefix === 'standard') return styleName;
+  styleName = styleName.charAt(0).toUpperCase() + styleName.substr(1);
+  return _prefix + styleName;
+}

@@ -29,7 +29,9 @@ npm run build --report
 "stylus": "^0.54.5",
 "stylus-loader": "^3.0.1",
 "better-scroll": "^1.8.0",
-"vue-lazyload": "^1.1.4"
+"vue-lazyload": "^1.1.4",
+"vue-router": "^3.0.1",
+"vuex": "^3.0.1"
 ```
 > 1、样式预处理程序stylus
 

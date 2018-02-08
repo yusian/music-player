@@ -10,17 +10,23 @@
             <div class="avatar"><img v-lazy="detail.avatar" width="120" height="120"></div>
             <div class="basic-info">
               <div class="name">{{detail.name}}</div>
-              <div class="fans">粉丝：{{detail.fans}}万人</div>
+              <div class="fans" v-show="detail.fans">粉丝：{{detail.fans}}万人</div>
               <div class="intorduce">{{detail.desc}}</div>
             </div>
           </div>
-          <div class="play-panel" ref="playPanel"></div>
+          <div class="play-panel" ref="playPanel">
+            <div class="play-button" v-show="detail.songList">
+              <span class="icon-play"></span>
+              <span class="play-text">播放全部</span>
+            </div>
+          </div>
           <div class="background">
             <div class="bg-wrapper" :style="backgroundStyle">
               <div class="bg-layer"></div>
             </div>
           </div>
         </div>
+        <loading v-if="!detail.songList"></loading>
         <div class="song-list" ref="scroll">
           <ul v-show="detail.songList">
             <div class="statistical">歌曲 共{{detail.songCount}}首</div>
@@ -44,11 +50,19 @@ import {
 } from '@/api/singer.js'
 import SingerDetail from './singerDetail.js'
 import BScroll from 'better-scroll'
+import {
+  prefixStyle
+} from '@/common/js/dom.js'
+import Loading from '@/base/loading/loading.vue'
+const transform = prefixStyle('transform');
 export default {
   data: function() {
     return {
       detail: {}
     }
+  },
+  components: {
+    Loading
   },
   computed: {
     backgroundStyle: function() {
@@ -63,8 +77,12 @@ export default {
     this._getSingerDetail(this.singer);
   },
   mounted: function() {
+    console.log(transform);
+    // Header的高度
     this.header_height = this.$refs.header.clientHeight
+    // body的高度减去Header的高度，得以songlist的高度
     this.$refs.scroll.style.height = (document.body.clientHeight - this.header_height) + 'px';
+    // Header在滚动过程中的偏移量
     this.playOffset = this.$refs.playPanel.offsetTop;
     this.scroll = new BScroll(this.$refs.scroll, {
       probeType: 3,
@@ -73,7 +91,7 @@ export default {
     this.scroll.on('scroll', offset => {
       let offsetY = Math.max(offset.y, -this.playOffset);
       offsetY = Math.min(0, offsetY);
-      this.$refs.header.style['transform'] = `translate3d(0, ${offsetY}px, 0)`;
+      this.$refs.header.style[transform] = `translate3d(0, ${offsetY}px, 0)`;
     });
   },
   methods: {
@@ -125,7 +143,7 @@ export default {
         display: flex
         overflow: hidden
         justify-content: space-between
-        padding: 16px
+        padding: 16px 16px 0
         font-size: 0
         .basic-info
           margin-left: 10px
@@ -146,8 +164,25 @@ export default {
             -webkit-line-clamp: 2
             font-weight: 200
       .play-panel
-        height: 60px
-        background: rgba(0,0,0,0.1)
+        height: 80px
+        display: flex
+        justify-content: center
+        align-items: center
+        .play-button
+          background: #31c27c
+          padding: 10px 40px
+          font-size: 0
+          border-radius: 30px
+          &:active
+            opacity: 0.5
+        .icon-play
+          font-size: 20px
+        .play-text
+          margin-left: 10px
+          font-size: 14px
+          line-height: 20px
+          font-weight: 200
+          vertical-align: top
       .background
         position: absolute
         top:0
@@ -165,6 +200,8 @@ export default {
             width: 100%
             height: 100%
             background: rgba(0,0,0,0.5)
+    .loading
+      color: $color-background
     .song-list
       font-size: 0
       background: white

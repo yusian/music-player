@@ -19,6 +19,7 @@
     "jsonp": "^0.2.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "vconsole": "^3.1.0",
     "vue": "^2.5.2",
     "vue-lazyload": "^1.1.4",
     "vue-router": "^3.0.1",

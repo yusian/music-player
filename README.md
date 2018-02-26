@@ -102,7 +102,7 @@ npm run build --report
 7.1.1、State：状态（数据）存储的全局单例
 7.1.2、Getter：状态（数据）存储的数据 读取 方法封装
 7.1.3、Mutation：状态（数据）存储的数据 写入 方法封装
-7.1.4、Action：暂未使用
+7.1.4、Action：对一组mutation的操作
 7.2、添加子路由，在路由路径为singer下面添加children数组，设置一个path为":id”这样路径就会根据router.push动态生成
 7.3、添加网络请求，封装歌手详情页面的网络请求方法；
 7.4、添加singer与song两个数据模拟对象；
@@ -110,4 +110,16 @@ npm run build --report
 7.5.1、整体结构为Header+SongList两部分，songlist为scroll，监听scroll事件；
 7.5.2、当往上滚动时将Header部分进行transform变化，使其同步上移到保留Header的底部；
 7.5.3、由于往上滚动超出了songlist的可视区域，overflow不能设置hidden，并且Header的z-index要比songlist大；
+7.6、高斯模糊的两种方式：backdrop-filter=blur(10px)与filter=blur(10px)，前者只有在iOS系统中被支持；
+7.7、添加JS操作dom属性的多浏览器兼容方法prefixStyle，在dom.js中实现；
+7.8、完善详情页面，添加loading体验效果；
+```
+> 8、播放器组件基础功能实现
+
+```
+8.1、播放器基本页面实图，该页面为全局页面，因此直接挂载在App.vue的模板中；
+8.2、Vuex中增加多个状态值，如：播放状态、播放器状态、播放列表、播放模式、当前歌曲等，并实现状态的读写；
+8.3、完善Song类，新增专辑图片、歌曲url、歌曲名等，播放器中需要使用这些字段；
+8.4、实现播放|暂停、下一曲、上一曲及与mini视图相互切换功能；
+8.5、播放动画，专辑海报随着播放循环自转，暂停而暂停；
 ```

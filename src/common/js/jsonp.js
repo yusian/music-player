@@ -7,8 +7,10 @@ export default function (url, param, option) {
   let promise = new Promise((resolve, reject) => {
     Jsonp(url, option, (error, data) => {
       if (error) {
+        console.log('jsonp.error...');
         reject(error);
       } else {
+        console.log('jsonp.data...');
         resolve(data);
       }
     })
@@ -16,7 +18,7 @@ export default function (url, param, option) {
   return promise;
 }
 // 将参数对象拼装成get请求的url参数字符串
-function stringFromParam(param) {
+export function stringFromParam(param) {
   let url = '';
   for (let key in param) {
     let val = param[key];

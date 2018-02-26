@@ -30,7 +30,7 @@
         <div class="song-list" ref="scroll">
           <ul v-show="detail.songList">
             <div class="statistical">歌曲 共{{detail.songCount}}首</div>
-            <li class="song-item" v-for="(song,index) in detail.songList" :key="index" @click="song_item_ilick">
+            <li class="song-item" v-for="(song,index) in detail.songList" :key="index" @click="song_item_click(song, index)">
               <div class="song-name">{{song.name}}</div>
               <div class="singer">{{song.singer}}</div>
             </li>
@@ -43,7 +43,8 @@
 
 <script>
 import {
-  mapGetters
+  mapGetters,
+  mapActions
 } from 'vuex'
 import {
   getSingerDetail
@@ -77,7 +78,6 @@ export default {
     this._getSingerDetail(this.singer);
   },
   mounted: function() {
-    console.log(transform);
     // Header的高度
     this.header_height = this.$refs.header.clientHeight
     // body的高度减去Header的高度，得以songlist的高度
@@ -101,16 +101,23 @@ export default {
         return;
       }
       getSingerDetail(singer.id).then(response => {
+        console.log(response.data);
         this.detail = new SingerDetail(response.data);
         console.log(this.detail);
-      })
+      });
     },
     back_click: function() {
       this.$router.back();
     },
-    song_item_ilick: function() {
-      console.log('...');
-    }
+    song_item_click: function(song, index) {
+      this.selectPlay({
+        list: this.detail.songList,
+        index
+      });
+    },
+    ...mapActions([
+      'selectPlay'
+    ])
   }
 }
 </script>

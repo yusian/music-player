@@ -6,6 +6,12 @@ export default class Song {
     this.name = musicData.songname;
     this.singers = singers(musicData.singer);
     this.singer = singer(musicData.singer);
+    this.albumid = musicData.albumid;
+    this.albummid = musicData.albummid;
+    this.albumname = musicData.albumname;
+    this.filename = `C400${musicData.songmid}.m4a`;
+    this.albumImage = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`
+    this.url = `http://thirdparty.gtimg.com/C100${musicData.songmid}.m4a?fromtag=38`;
   }
 }
 

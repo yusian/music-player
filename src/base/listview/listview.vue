@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="list-view" ref="listView">
   <div class="list-view-wrapper">
-    <ul class="list-group">
+    <ul class="list-group" id="scroll">
       <li class="group-section" v-for="(group, index) in listGroup" :key="index" ref="section">
         <h2 class="section-title">{{group.title}}</h2>
         <ul class="section-cells">
@@ -24,7 +24,11 @@
 
 <script>
 import BScroll from 'better-scroll'
+import {
+  playlistMixin
+} from '@/common/js/mixin.js'
 export default {
+  mixins: [playlistMixin],
   data: function() {
     return {
       currentIndex: 0,
@@ -73,6 +77,12 @@ export default {
     })
   },
   methods: {
+    handlePlaylist: function(playlist) {
+      let padding = (playlist.length === 0) ? 0 : 60;
+      let listGroup = document.getElementById('scroll');
+      listGroup.style['padding-bottom'] = `${padding}px`;
+      if (this.scroll) this.scroll.refresh();
+    },
     _cell_click: function(singer) {
       this.$emit('item-click', singer);
     },

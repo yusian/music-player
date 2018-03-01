@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="play-panel" ref="playPanel">
-            <div class="play-button" v-show="detail.songList">
+            <div class="play-button" v-show="detail.songList" @click="_playAll">
               <span class="icon-play"></span>
               <span class="play-text">播放全部</span>
             </div>
@@ -55,8 +55,12 @@ import {
   prefixStyle
 } from '@/common/js/dom.js'
 import Loading from '@/base/loading/loading.vue'
+import {
+  playlistMixin
+} from '@/common/js/mixin'
 const transform = prefixStyle('transform');
 export default {
+  mixins: [playlistMixin],
   data: function() {
     return {
       detail: {}
@@ -115,8 +119,19 @@ export default {
         index
       });
     },
+    _playAll: function() {
+      console.log('...');
+      this.playAll(this.detail.songList);
+    },
+    handlePlaylist: function(playlist) {
+      let padding = (playlist.length === 0) ? 0 : 60;
+      let h = document.body.clientHeight - this.header_height - padding;
+      this.$refs.scroll.style['height'] = `${h}px`;
+      if (this.scroll) this.scroll.refresh();
+    },
     ...mapActions([
-      'selectPlay'
+      'selectPlay',
+      'playAll'
     ])
   }
 }
@@ -138,7 +153,7 @@ export default {
     .detail-header
       z-index: 10
       position: relative
-      flex: 0 0 256px
+      height: 256px
       .nav-bar
         height: 44px
         font-size: 0

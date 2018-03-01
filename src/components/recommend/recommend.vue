@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="recommend" ref="recommend">
-    <div class="recom-wrapper">
+    <div class="recom-wrapper" id="scroll">
       <slider v-if="slidArray.length">
         <a v-for="pic in slidArray" :href="pic.linkUrl" :key="pic.id">
           <img :src="pic.picUrl" width="100%" alt="">
@@ -32,7 +32,11 @@ import {
 } from '@/api/recommend.js'
 import Slider from '@/base/slider/slider.vue'
 import BScroll from 'better-scroll'
+import {
+  playlistMixin
+} from '@/common/js/mixin.js'
 export default {
+  mixins: [playlistMixin],
   data: function() {
     return {
       slidArray: [],
@@ -48,6 +52,11 @@ export default {
     }, 20);
   },
   methods: {
+    handlePlaylist: function(playlist) {
+      let padding = (playlist.length === 0) ? 0 : 60;
+      document.getElementById('scroll').style['padding-bottom'] = `${padding}px`;
+      if (this.scroll) this.scroll.refresh();
+    },
     _getRecommond: function() {
       getRecommond().then(response => {
         console.log(response);

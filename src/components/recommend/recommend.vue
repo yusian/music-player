@@ -54,7 +54,8 @@ export default {
   methods: {
     handlePlaylist: function(playlist) {
       let padding = (playlist.length === 0) ? 0 : 60;
-      document.getElementById('scroll').style['padding-bottom'] = `${padding}px`;
+      let scroll = document.getElementById('scroll');
+      if (scroll) scroll.style['padding-bottom'] = `${padding}px`;
       if (this.scroll) this.scroll.refresh();
     },
     _getRecommond: function() {

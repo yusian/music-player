@@ -21,6 +21,9 @@ const mutations = {
   },
   [types.SET_CURRENT_INDEX](state, currentIndex) {
     state.currentIndex = currentIndex;
+  },
+  [types.SET_RANK_ITEM](state, rankItem) {
+    state.rankItem = rankItem;
   }
 }
 

@@ -92,11 +92,7 @@ export default {
   },
   computed: {
     backgroundStyle: function() {
-      return `background: url(${this.currentSong.albumImage});
-              background-repeat: no-repeat;
-              background-size: 100% 100%;
-              filter: blur(16px);
-              `;
+      return `background: url('${this.currentSong.albumImage}') no-repeat center`;
     },
     // 播放、上一曲、下一曲按钮状态
     playItemDisable: function() {
@@ -263,12 +259,13 @@ export default {
 <style lang="stylus">
 @import '~@/common/stylus/variable.styl'
 .player
+  z-index: 200
   .player-full
     position: absolute
     top: 0
     width: 100%
     height: 100%
-    background: $color-background
+    background: black
     &.v-enter-active,&.v-leave-active
       transition: all 0.4s
       .full-header,.full-ctrl-panel
@@ -294,12 +291,15 @@ export default {
     top:0
     width: 100%
     height: 100%
+    z-index: 50
+    filter: blur(16px);
+    background-size: 100% 100% !important
   .full-wrapper
     display: flex
     flex-direction: column
     height: 100%
     position: relative
-    z-index: 10
+    z-index: 100
     background: rgba(0,0,0,0.4)
   .full-title
     line-height: 44px

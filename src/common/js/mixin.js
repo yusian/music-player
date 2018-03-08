@@ -9,12 +9,16 @@ export const playlistMixin = {
     ])
   },
   mounted: function () {
+    console.log('mixin_mounted......');
     this.handlePlaylist(this.playlist);
   },
-  updated: function () {
-    console.log('updated...');
+  activated: function () {
+    console.log('mixin_activated......');
     this.handlePlaylist(this.playlist);
   },
+  // updated: function () {
+  //   this.handlePlaylist(this.playlist);
+  // },
   watch: {
     playlist: function (value) {
       this.handlePlaylist(value);

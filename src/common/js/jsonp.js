@@ -1,5 +1,7 @@
 import Jsonp from 'jsonp'
-
+import {
+  commonParams
+} from '@/api/config.js'
 export default function (url, param, option) {
   // indexOf()字符吕某字符序号，没有返回
   url += (url.indexOf('?') < 0) ? '?' : '&';
@@ -26,4 +28,13 @@ export function stringFromParam(param) {
     url += ('&' + key + '=' + encodeURIComponent(val));
   }
   return url ? url.substr(1) : '';
+}
+// 代理请求方法
+export function proxyGetRequestURL(url, param) {
+  url += (url.indexOf('?') < 0) ? '?' : '&';
+  url += stringFromParam(Object.assign({
+    format: 'json',
+    platform: 'h5'
+  }, commonParams, param));
+  return url;
 }

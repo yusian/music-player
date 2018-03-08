@@ -9,6 +9,7 @@ export default class Song {
     this.albumid = musicData.albumid;
     this.albummid = musicData.albummid;
     this.albumname = musicData.albumname;
+    this.albumdesc = musicData.albumdesc;
     this.filename = `C400${musicData.songmid}.m4a`;
     this.interval = musicData.interval;
     this.albumImage = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`

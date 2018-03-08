@@ -80,7 +80,7 @@ export default {
     handlePlaylist: function(playlist) {
       let padding = (playlist.length === 0) ? 0 : 60;
       let listGroup = document.getElementById('scroll');
-      listGroup.style['padding-bottom'] = `${padding}px`;
+      if (listGroup) listGroup.style['padding-bottom'] = `${padding}px`;
       if (this.scroll) this.scroll.refresh();
     },
     _cell_click: function(singer) {

@@ -227,10 +227,13 @@ export default {
       color: gray
     .song-item
       display: flex
+      display: -webkit-flex
       height: 60px
       align-items: center
+      -webkit-align-items: center
       .item-index
         flex: 0 0 44px
+        -webkit-flex: 0 0 44px
         font-weight: 300
         text-align: center
         color: gray

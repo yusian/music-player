@@ -12,10 +12,11 @@ export default {}
 <style lang="stylus">
 .loading
   position: fixed
+  display: flex
+  align-items: center
+  justify-content: center
   top: 50%
   width: 100%
-  display: flex
-  justify-content: center
   font-size: 0
   .loading-text
     font-size: 16px

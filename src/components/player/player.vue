@@ -143,7 +143,8 @@ export default {
     // 下一曲
     playNext: function() {
       if (this.audioReaded === false) return;
-      if (this.mode === playMode.loop) {
+      // 单曲循环或当前只有一首歌，下一曲即重播
+      if ((this.mode === playMode.loop) || (this.playlist.length === 1)) {
         this._replay();
         return;
       }
@@ -266,6 +267,7 @@ export default {
     width: 100%
     height: 100%
     background: black
+    overflow:hidden
     &.v-enter-active,&.v-leave-active
       transition: all 0.4s
       .full-header,.full-ctrl-panel
@@ -288,9 +290,10 @@ export default {
       transform: translate3d(0, 100%, 0)
   .full-background
     position: absolute
-    top:0
-    width: 100%
-    height: 100%
+    top:-10%
+    left: -10%
+    width: 120%
+    height: 120%
     z-index: 50
     filter: blur(16px);
     background-size: 100% 100% !important
@@ -360,8 +363,11 @@ export default {
     padding-bottom: 40px
     .ctrl-item-list
       display: flex
+      display: -webkit-flex
       justify-content: space-around
+      -webkit-justify-content: space-around
       align-items: center
+      -webkit-align-items: center
       padding: 20px 20px
       font-size: 26px
       color: $color-theme
@@ -393,10 +399,12 @@ export default {
       padding: 8px 0
       .mini-song-name
         font-size: 14px
+        display: block
       .mini-song-singer
         font-size: 12px
         font-weight: 300
         color: $color-text-l
+        display: block
     .icon-playlist,.icon-play-mini,.icon-pause-mini
       font-size: 28px
       line-height: 60px

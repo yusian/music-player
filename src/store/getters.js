@@ -7,3 +7,4 @@ export const mode = state => state.mode;
 export const currentIndex = state => state.currentIndex;
 export const currentSong = state => state.playlist[state.currentIndex] || {};
 export const rankItem = state => state.rankItem;
+export const searchHistoryList = state => state.searchHistoryList;

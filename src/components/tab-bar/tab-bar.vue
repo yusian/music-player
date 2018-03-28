@@ -25,6 +25,8 @@ export default {}
 @import '~@/common/stylus/variable.styl'
 .tabbar-wrapper
   display: flex
+  display: -webkit-flex
+  width: 100%
   justify-content: space-between
   .tabbar-item
     width: 100%

@@ -143,7 +143,9 @@ export default {
     background: $color-highlight-background
   .section-cell
     display: flex
+    display: -webkit-flex
     align-items: center
+    -webkit-align-items: center
     padding: 10px 20px
     .cell-avatar
       img

@@ -93,6 +93,7 @@ export default {
     .song-list
       .song-item
         display: flex
+        display: -webkit-flex
         padding: 10px 20px
         .icon
           font-size: 0
